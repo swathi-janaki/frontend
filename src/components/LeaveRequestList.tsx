@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Clock, CheckCircle, XCircle, Calendar, User, FileText } from 'lucide-react';
 import { useAuth } from '../services/AuthContext';
 
-interface ODRequest {
+interface LeaveRequest {
   id: string;
   studentId: string;
   studentName: string;
@@ -20,9 +20,9 @@ interface ODRequest {
   hodComments?: string;
 }
 
-const ODRequestList = () => {
+const LeaveRequestList = () => {
   const { user } = useAuth();
-  const [requests, setRequests] = useState<ODRequest[]>([]);
+  const [requests, setRequests] = useState<LeaveRequest[]>([]);
 
   useEffect(() => {
     const loadRequests = () => {
@@ -30,8 +30,8 @@ const ODRequestList = () => {
       
       // Filter requests based on user type
       const filteredRequests = user?.type === 'student' 
-        ? allRequests.filter((req: ODRequest) => req.studentId === user.id)
-        : allRequests.filter((req: ODRequest) => req.department === user?.department);
+        ? allRequests.filter((req: LeaveRequest) => req.studentId === user.id)
+        : allRequests.filter((req: LeaveRequest) => req.department === user?.department);
       
       setRequests(filteredRequests);
     };
@@ -77,11 +77,11 @@ const ODRequestList = () => {
     return (
       <div className="text-center py-12">
         <FileText className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-        <h3 className="text-lg font-medium text-gray-900 mb-2">No OD Requests</h3>
+        <h3 className="text-lg font-medium text-gray-900 mb-2">No Leave Requests</h3>
         <p className="text-gray-500">
           {user?.type === 'student' 
-            ? "You haven't submitted any OD requests yet."
-            : "No OD requests found for your department."
+            ? "You haven't submitted any Leave requests yet."
+            : "No Leave requests found for your department."
           }
         </p>
       </div>
@@ -108,7 +108,7 @@ const ODRequestList = () => {
                     {user?.type === 'hod' && (
                       <span>{request.studentName} ({request.rollNumber}) - </span>
                     )}
-                    OD Request
+                    Leave Request
                   </h3>
                   <div className="flex items-center space-x-4 text-sm text-gray-500 mt-1">
                     <span className="flex items-center">
@@ -149,4 +149,4 @@ const ODRequestList = () => {
   );
 };
 
-export default ODRequestList;
+export default LeaveRequestList;

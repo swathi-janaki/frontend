@@ -17,17 +17,14 @@ export default function Login() {
   const navigate = useNavigate();
 
   const departments = [
-    'Computer Science',
-    'Information Technology',
-    'Electronics & Communication',
-    'Mechanical Engineering',
+    'Artificial Intelligence and Data Science',
     'Civil Engineering',
-    'Electrical Engineering',
-    'Chemical Engineering',
-    'Biotechnology',
-    'Mathematics',
-    'Physics',
-    'Chemistry'
+    'Computer Science and Engineering',
+    'Electronics and Communication Engineering',
+    'Electrical and Electronics Engineering',
+    'Information Technology',
+    'Mechanical Engineering',
+    
   ];
 
   async function handleSubmit(e: React.FormEvent) {

@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Calendar, FileText, Send, Upload } from 'lucide-react';
 import { useAuth } from '../services/AuthContext';
 
-interface ODRequest {
+interface LeaveRequest {
   id: string;
   studentId: string;
   studentName: string;
@@ -21,7 +21,7 @@ interface ODRequest {
   hodComments?: string;
 }
 
-const ODRequestForm = () => {
+const LeaveRequestForm = () => {
   const { user } = useAuth();
   const [formData, setFormData] = useState({
     startDate: '',
@@ -52,7 +52,7 @@ const ODRequestForm = () => {
     await new Promise(resolve => setTimeout(resolve, 1500));
 
     // Create new OD request
-    const newRequest: ODRequest = {
+    const newRequest: LeaveRequest = {
       id: Date.now().toString(),
       studentId: user?.id || '',
       studentName: user?.name || '',
@@ -70,9 +70,9 @@ const ODRequestForm = () => {
     };
 
     // Save to localStorage (in real app, this would be API call)
-    const existingRequests = JSON.parse(localStorage.getItem('od-requests') || '[]');
+    const existingRequests = JSON.parse(localStorage.getItem('leave-requests') || '[]');
     existingRequests.push(newRequest);
-    localStorage.setItem('od-requests', JSON.stringify(existingRequests));
+    localStorage.setItem('leave-requests', JSON.stringify(existingRequests));
 
     setIsSubmitting(false);
     setSubmitSuccess(true);
@@ -95,13 +95,13 @@ const ODRequestForm = () => {
   return (
     <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-lg p-8">
       <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900 mb-2">Request On-Duty (OD)</h2>
-        <p className="text-gray-600">Fill out the form below to submit your OD request</p>
+        <h2 className="text-2xl font-bold text-gray-900 mb-2">Request Leave</h2>
+        <p className="text-gray-600">Fill out the form below to submit your Leave request</p>
       </div>
 
       {submitSuccess && (
         <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg">
-          <p className="text-green-800 font-medium">OD request submitted successfully!</p>
+          <p className="text-green-800 font-medium">Leave request submitted successfully!</p>
           <p className="text-green-600 text-sm">Your request is now pending HOD approval.</p>
         </div>
       )}
@@ -238,4 +238,4 @@ const ODRequestForm = () => {
   );
 };
 
-export default ODRequestForm;
+export default LeaveRequestForm;
